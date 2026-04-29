@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | Experience the Random</title>
+    <style>
+        :root {
+            --bg-color-1: #000000;
+            --bg-color-2: #434343;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* The Animated Canvas */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Content Styling */
+        .content {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        button {
+            margin-top: 2rem;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-canvas"></div>
+
+    <div class="content">
+        <h1 id="greeting">Hello there.</h1>
+        <p>Refresh the page to see a new vibe.</p>
+        <button onclick="location.reload()">New Style</button>
+    </div>
+
+    <script>
+        // Array of color palettes
+        const palettes = [
+            ['#ee7752', '#e73c7e', '#23a6d5', '#23d5ab'],
+            ['#1a2a6c', '#b21f1f', '#fdbb2d', '#1a2a6c'],
+            ['#000428', '#004e92', '#000428', '#004e92'],
+            ['#833ab4', '#fd1d1d', '#fcb045', '#833ab4'],
+            ['#2193b0', '#6dd5ed', '#2193b0', '#6dd5ed']
+        ];
+
+        // Pick a random palette
+        const randomPalette = palettes[Math.floor(Math.random() * palettes.length)];
+        
+        // Apply palette to the background
+        const bg = document.getElementById('bg-canvas');
+        bg.style.background = `linear-gradient(-45deg, ${randomPalette.join(', ')})`;
+        bg.style.backgroundSize = "400% 400%";
+
+        // Randomize Greeting based on time
+        const hour = new Date().getHours();
+        const greetingEl = document.getElementById('greeting');
+        
+        if (hour < 12) greetingEl.innerText = "Good morning.";
+        else if (hour < 18) greetingEl.innerText = "Good afternoon.";
+        else greetingEl.innerText = "Good evening.";
+    </script>
+</body>
+</html>
